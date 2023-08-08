@@ -1,8 +1,19 @@
+import { useState } from 'react'
 import Head from 'next/head'
-import { AppBar, Toolbar, Typography } from '@mui/material'
+import { useRouter } from 'next/router'
+import { AppBar, Box, Button, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
+import { Menu as MenuIcon, MoveToInbox as InboxIcon} from '@mui/icons-material'
 import { APP_NAME } from '@/config'
 
 export default function Layout({ children }: any) {
+  const router = useRouter()
+
+  const [open, setOpen] = useState(false)
+
+  const toggleDrawer = () => {
+    setOpen(!open)
+  }
+
   return (
     <>
       <Head>
@@ -13,11 +24,40 @@ export default function Layout({ children }: any) {
       </Head>
       <AppBar position="static">
         <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={toggleDrawer}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {APP_NAME}
           </Typography>
         </Toolbar>
       </AppBar>
+      <Drawer
+        open={open}
+        onClose={toggleDrawer}
+      >
+        <Box sx={{ width: 250 }}>
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => router.push('/projects')}>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText>
+                  Projects
+                </ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
+      </Drawer>
       <main>
         {children}
       </main>

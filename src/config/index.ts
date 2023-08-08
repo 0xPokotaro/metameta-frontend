@@ -1,1 +1,1 @@
-export const APP_NAME = 'MetaMeta'
+export const APP_NAME = 'MintHub'
