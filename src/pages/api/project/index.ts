@@ -9,10 +9,14 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   try {
-    const response = await axios.get(`${apiUrl}/api/nft/collection`)
-
     res.status(200).json({
-      data: response.data.data,
+      data: [
+        {
+          id: 1,
+          name: 'MetaKawaii',
+          createdAt: '2021-10-01T00:00:00.000Z',
+        },
+      ],
     })
   } catch (error: any) {
     console.error(error)

@@ -4,6 +4,7 @@ import {
   Button,
   Box,
   Container,
+  Link,
   Table,
   TableBody,
   TableCell,
@@ -14,10 +15,12 @@ import {
 import Grid from '@mui/material/Unstable_Grid2'
 import { PAGE_NAME } from '@/config'
 import CreateProjectDialog from '@/components/dialog/CreateProjectDialog'
+import EditProjectDialog from '@/components/dialog/EditProjectDialog'
 
-const Home: React.FC<React.PropsWithChildren> = () => {
+const Projects: React.FC<React.PropsWithChildren> = () => {
   const [projects, setProjects] = useState([])
   const [openCreateProjectDialog, setOpenCreateProjectDialog] = useState(false)
+  const [openEditProjectDialog, setOpenEditProjectDialog] = useState(false)
 
   const fetchProjects = async () => {
     try {
@@ -33,6 +36,10 @@ const Home: React.FC<React.PropsWithChildren> = () => {
     setOpenCreateProjectDialog(false)
   }
 
+  const handlerCloseEditProjectDialog = () => {
+    setOpenEditProjectDialog(false)
+  }
+
   useEffect(() => {
     fetchProjects()
   }, [])
@@ -42,7 +49,10 @@ const Home: React.FC<React.PropsWithChildren> = () => {
       <Grid container spacing={2}>
         <Grid xs={12}>
           <Breadcrumbs aria-label="breadcrumb">
-            <Typography color="text.primary">{PAGE_NAME.HOME}</Typography>
+            <Link underline="hover" color="inherit" href="/">
+              {PAGE_NAME.HOME}
+            </Link>
+            <Typography color="text.primary">{PAGE_NAME.PROJECTS}</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid xs={12} sx={{ textAlign: 'right' }}>
@@ -78,7 +88,13 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Box>
-                      <Button>Edit</Button>
+                      <Button onClick={() => setOpenEditProjectDialog(true)}>
+                        Edit
+                      </Button>
+                      <EditProjectDialog
+                        open={openEditProjectDialog}
+                        onClose={handlerCloseEditProjectDialog}
+                      />
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -91,4 +107,4 @@ const Home: React.FC<React.PropsWithChildren> = () => {
   )
 }
 
-export default Home
+export default Projects
