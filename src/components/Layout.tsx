@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material'
 import { Menu as MenuIcon, MoveToInbox as InboxIcon } from '@mui/icons-material'
-import { APP_NAME } from '@/config'
+import { APP_NAME, PAGE_NAME } from '@/config'
 
 export default function Layout({ children }: any) {
   const router = useRouter()
@@ -61,11 +61,11 @@ export default function Layout({ children }: any) {
         <Box sx={{ width: 250 }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => goto('/projects')}>
+              <ListItemButton onClick={() => goto('/collections')}>
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText>Projects</ListItemText>
+                <ListItemText>{PAGE_NAME.COLLECTIONS.INDEX}</ListItemText>
               </ListItemButton>
             </ListItem>
           </List>

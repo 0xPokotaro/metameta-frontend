@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import {
   Breadcrumbs,
   Button,
@@ -14,30 +15,34 @@ import {
 } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { PAGE_NAME } from '@/config'
-import CreateProjectDialog from '@/components/dialog/CreateProjectDialog'
-import EditProjectDialog from '@/components/dialog/EditProjectDialog'
+import CreateCollectionDialog from '@/components/dialog/CreateCollectionDialog'
+import EditCollectionDialog from '@/components/dialog/EditCollectionDialog'
 
-const Projects: React.FC<React.PropsWithChildren> = () => {
-  const [projects, setProjects] = useState([])
-  const [openCreateProjectDialog, setOpenCreateProjectDialog] = useState(false)
-  const [openEditProjectDialog, setOpenEditProjectDialog] = useState(false)
+const Collections: React.FC<React.PropsWithChildren> = () => {
+  const router = useRouter()
+
+  const [collections, setCollections] = useState([])
+  const [openCreateCollectionDialog, setOpenCreateCollectionDialog] =
+    useState(false)
+  const [openEditCollectionDialog, setOpenEditCollectionDialog] =
+    useState(false)
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch('/api/project')
+      const response = await fetch('/api/collection')
       const data = await response.json()
-      setProjects(data.data)
+      setCollections(data.data)
     } catch (error) {
       console.log(error)
     }
   }
 
-  const handlerCloseCreateProjectDialog = () => {
-    setOpenCreateProjectDialog(false)
+  const handlerCloseCreateCollectionDialog = () => {
+    setOpenCreateCollectionDialog(false)
   }
 
-  const handlerCloseEditProjectDialog = () => {
-    setOpenEditProjectDialog(false)
+  const handlerCloseEditCollectionDialog = () => {
+    setOpenEditCollectionDialog(false)
   }
 
   useEffect(() => {
@@ -52,33 +57,35 @@ const Projects: React.FC<React.PropsWithChildren> = () => {
             <Link underline="hover" color="inherit" href="/">
               {PAGE_NAME.HOME}
             </Link>
-            <Typography color="text.primary">{PAGE_NAME.PROJECTS}</Typography>
+            <Typography color="text.primary">
+              {PAGE_NAME.COLLECTIONS.INDEX}
+            </Typography>
           </Breadcrumbs>
         </Grid>
         <Grid xs={12} sx={{ textAlign: 'right' }}>
           <Button
             variant="contained"
             disableElevation
-            onClick={() => setOpenCreateProjectDialog(true)}
+            onClick={() => setOpenCreateCollectionDialog(true)}
           >
-            Create new project
+            Create new collection
           </Button>
-          <CreateProjectDialog
-            open={openCreateProjectDialog}
-            onClose={handlerCloseCreateProjectDialog}
+          <CreateCollectionDialog
+            open={openCreateCollectionDialog}
+            onClose={handlerCloseCreateCollectionDialog}
           />
         </Grid>
         <Grid xs={12}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Project name</TableCell>
+                <TableCell>Collection name</TableCell>
                 <TableCell>Created on</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {projects.map((row: any) => (
+              {collections.map((row: any) => (
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     {row.name}
@@ -88,12 +95,14 @@ const Projects: React.FC<React.PropsWithChildren> = () => {
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Box>
-                      <Button onClick={() => setOpenEditProjectDialog(true)}>
+                      <Button
+                        onClick={() => router.push('/collections/edit/xxxx')}
+                      >
                         Edit
                       </Button>
-                      <EditProjectDialog
-                        open={openEditProjectDialog}
-                        onClose={handlerCloseEditProjectDialog}
+                      <EditCollectionDialog
+                        open={openEditCollectionDialog}
+                        onClose={handlerCloseEditCollectionDialog}
                       />
                     </Box>
                   </TableCell>
@@ -107,4 +116,4 @@ const Projects: React.FC<React.PropsWithChildren> = () => {
   )
 }
 
-export default Projects
+export default Collections

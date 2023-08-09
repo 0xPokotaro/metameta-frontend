@@ -12,7 +12,7 @@ type Props = {
   onClose: () => void
 }
 
-const CreateProjectDialog = (props: Props) => {
+const CreateCollectionDialog = (props: Props) => {
   const { onClose, open } = props
 
   const handleClose = () => {
@@ -21,12 +21,13 @@ const CreateProjectDialog = (props: Props) => {
 
   return (
     <Dialog open={open} maxWidth="sm" fullWidth>
-      <DialogTitle>Create project</DialogTitle>
+      <DialogTitle>Create collection</DialogTitle>
       <DialogContent dividers>
         <ul>
-          <li>project name</li>
-          <li>nft name</li>
-          <li>nft symbol</li>
+          <li>name</li>
+          <li>symbol</li>
+          <li>description</li>
+          <li>tags</li>
         </ul>
       </DialogContent>
       <DialogActions>
@@ -41,4 +42,4 @@ const CreateProjectDialog = (props: Props) => {
   )
 }
 
-export default CreateProjectDialog
+export default CreateCollectionDialog

@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { PAGE_NAME } from '@/config'
-import CreateProjectDialog from '@/components/dialog/CreateProjectDialog'
+import CreateProjectDialog from '@/components/dialog/CreateCollectionDialog'
 
 const Home: React.FC<React.PropsWithChildren> = () => {
   const [projects, setProjects] = useState([])
