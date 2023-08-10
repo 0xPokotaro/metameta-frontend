@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import {
   Breadcrumbs,
+  Box,
   Button,
   Container,
   Link,
+  InputAdornment,
   Tab,
-  Tabs,
+  TextField,
   Typography,
 } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
+import { ArrowCircleRight } from '@mui/icons-material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { PAGE_NAME } from '@/config'
 
@@ -47,7 +50,7 @@ const CollectionDetail: React.FC<React.PropsWithChildren> = () => {
               <Tab label="Smart contract" value="3" />
               <Tab label="Allow list" value="4" />
             </TabList>
-            <TabPanel value="1">
+            <TabPanel value="1" sx={{ px: 0 }}>
               <Grid container spacing={2}>
                 <Grid xs={12} sx={{ textAlign: 'right' }}>
                   <Button variant="contained" disableElevation>
@@ -55,19 +58,116 @@ const CollectionDetail: React.FC<React.PropsWithChildren> = () => {
                   </Button>
                 </Grid>
                 <Grid xs={12}>
-                  <Typography variant="h5">Collection</Typography>
+                  <Typography variant="h6" sx={{ pb: '16px' }}>
+                    Collection
+                  </Typography>
+                  <Box sx={{ pb: '24px' }}>
+                    <TextField
+                      id="nft-name"
+                      label="Name"
+                      defaultValue="Name"
+                      fullWidth
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ pb: '24px' }}>
+                    <TextField
+                      id="nft-symbol"
+                      label="Symbol"
+                      defaultValue="Symbol"
+                      fullWidth
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ pb: '24px' }}>
+                    <TextField
+                      id="nft-description"
+                      label="Description"
+                      defaultValue="Description"
+                      fullWidth
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                    />
+                  </Box>
                 </Grid>
                 <Grid xs={12}>
-                  <Typography variant="h5">Social media</Typography>
-                </Grid>
-                <Grid xs={12}>
-                  <Typography variant="h5">Documents</Typography>
+                  <Typography variant="h6" sx={{ pb: '16px' }}>
+                    Social media
+                  </Typography>
+                  <Box sx={{ pb: '24px' }}>
+                    <TextField
+                      id="nft-x"
+                      label="X"
+                      defaultValue="https://twitter.com/"
+                      fullWidth
+                      InputProps={{
+                        readOnly: true,
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <ArrowCircleRight
+                              sx={{ cursor: 'pointer' }}
+                              onClick={() => console.log('hoge')}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ pb: '24px' }}>
+                    <TextField
+                      id="nft-discord"
+                      label="Discord"
+                      defaultValue="https://discord.com/"
+                      fullWidth
+                      InputProps={{
+                        readOnly: true,
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <ArrowCircleRight
+                              sx={{ cursor: 'pointer' }}
+                              onClick={() => console.log('hoge')}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ pb: '24px' }}>
+                    <TextField
+                      id="nft-telegram"
+                      label="Telegram"
+                      defaultValue="https://telegram.org/"
+                      fullWidth
+                      InputProps={{
+                        readOnly: true,
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <ArrowCircleRight
+                              sx={{ cursor: 'pointer' }}
+                              onClick={() => console.log('hoge')}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
                 </Grid>
               </Grid>
             </TabPanel>
-            <TabPanel value="2">Item 2</TabPanel>
-            <TabPanel value="3">Item 3</TabPanel>
-            <TabPanel value="4">Item 4</TabPanel>
+            <TabPanel value="2" sx={{ px: 0 }}>
+              Item 2
+            </TabPanel>
+            <TabPanel value="3" sx={{ px: 0 }}>
+              Item 3
+            </TabPanel>
+            <TabPanel value="4" sx={{ px: 0 }}>
+              Item 4
+            </TabPanel>
           </TabContext>
         </Grid>
       </Grid>
