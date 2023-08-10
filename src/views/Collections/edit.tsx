@@ -1,23 +1,15 @@
 import { useEffect, useState } from 'react'
 import {
   Breadcrumbs,
-  Button,
   Box,
   Container,
   Link,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   Tab,
   Tabs,
   Typography,
 } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { PAGE_NAME } from '@/config'
-import CreateCollectionDialog from '@/components/dialog/CreateCollectionDialog'
-import EditCollectionDialog from '@/components/dialog/EditCollectionDialog'
 
 function CustomTabPanel(props: any) {
   const { children, value, index, ...other } = props
@@ -47,26 +39,11 @@ function a11yProps(index: number) {
 }
 
 const CollectionsEdit: React.FC<React.PropsWithChildren> = () => {
-  const [collections, setCollections] = useState([])
   const [value, setValue] = useState(0)
-
-  const fetchProjects = async () => {
-    try {
-      const response = await fetch('/api/collection')
-      const data = await response.json()
-      setCollections(data.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
-
-  useEffect(() => {
-    fetchProjects()
-  }, [])
 
   return (
     <Container maxWidth="lg" sx={{ my: '24px' }}>

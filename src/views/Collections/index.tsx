@@ -16,15 +16,12 @@ import {
 import Grid from '@mui/material/Unstable_Grid2'
 import { PAGE_NAME } from '@/config'
 import CreateCollectionDialog from '@/components/dialog/CreateCollectionDialog'
-import EditCollectionDialog from '@/components/dialog/EditCollectionDialog'
 
 const Collections: React.FC<React.PropsWithChildren> = () => {
   const router = useRouter()
 
   const [collections, setCollections] = useState([])
   const [openCreateCollectionDialog, setOpenCreateCollectionDialog] =
-    useState(false)
-  const [openEditCollectionDialog, setOpenEditCollectionDialog] =
     useState(false)
 
   const fetchProjects = async () => {
@@ -39,10 +36,6 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
 
   const handlerCloseCreateCollectionDialog = () => {
     setOpenCreateCollectionDialog(false)
-  }
-
-  const handlerCloseEditCollectionDialog = () => {
-    setOpenEditCollectionDialog(false)
   }
 
   useEffect(() => {
@@ -96,14 +89,10 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
                   <TableCell component="th" scope="row">
                     <Box>
                       <Button
-                        onClick={() => router.push('/collections/edit/xxxx')}
+                        onClick={() => router.push('/collections/detail/xxxx')}
                       >
-                        Edit
+                        Detail
                       </Button>
-                      <EditCollectionDialog
-                        open={openEditCollectionDialog}
-                        onClose={handlerCloseEditCollectionDialog}
-                      />
                     </Box>
                   </TableCell>
                 </TableRow>
