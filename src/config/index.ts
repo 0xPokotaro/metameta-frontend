@@ -1,4 +1,4 @@
-export const APP_NAME = 'MintHub'
+export const APP_NAME = 'Minthub'
 
 export const PAGE_NAME = {
   HOME: 'Home',
