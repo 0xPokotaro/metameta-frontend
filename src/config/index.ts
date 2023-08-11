@@ -8,3 +8,7 @@ export const PAGE_NAME = {
     EDIT: 'Edit',
   },
 }
+
+export const API_URI = {
+  COLLECTIONS: '/api/collections',
+}

@@ -15,8 +15,9 @@ import {
   Typography,
 } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
-import { PAGE_NAME } from '@/config'
-import CreateCollectionDialog from '@/components/dialog/CreateCollectionDialog'
+import { API_URI, PAGE_NAME } from '@/config'
+import AlartDialog from '@/components/dialog/AlartDialog'
+import CollectionDialogCreate from '@/components/dialog/CollectionDialogCreate'
 
 const Collections: React.FC<React.PropsWithChildren> = () => {
   const router = useRouter()
@@ -24,11 +25,12 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
 
   const [collections, setCollections] = useState([])
   const [openCreateCollectionDialog, setOpenCreateCollectionDialog] =
-    useState(false)
+    useState<boolean>(false)
+  const [openAlertDialog, setOpenAlertDialog] = useState<boolean>(false)
 
-  const fetchProjects = async () => {
+  const fetchCollections = async () => {
     try {
-      const response = await fetch('/api/collection')
+      const response = await fetch(API_URI.COLLECTIONS)
       const data = await response.json()
       setCollections(data.data)
     } catch (error) {
@@ -40,8 +42,12 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
     setOpenCreateCollectionDialog(false)
   }
 
+  const handlerOpenAlertDialog = () => {
+    setOpenAlertDialog(true)
+  }
+
   useEffect(() => {
-    fetchProjects()
+    fetchCollections()
   }, [])
 
   return (
@@ -65,8 +71,9 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
           >
             {t('index.button.create')}
           </Button>
-          <CreateCollectionDialog
+          <CollectionDialogCreate
             open={openCreateCollectionDialog}
+            onAlart={handlerOpenAlertDialog}
             onClose={handlerCloseCreateCollectionDialog}
           />
         </Grid>
@@ -103,6 +110,11 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
           </Table>
         </Grid>
       </Grid>
+      <AlartDialog
+        open={openAlertDialog}
+        onClose={() => setOpenAlertDialog(false)}
+        title="Delete collection"
+      />
     </Container>
   )
 }
