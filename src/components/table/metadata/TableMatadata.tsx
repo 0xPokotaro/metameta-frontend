@@ -70,9 +70,13 @@ const TableMatadata = () => {
             </TableCell>
             <TableCell component="th" scope="row">
               <Box>
-                <Button onClick={() => router.push('/collections/detail/xxxx')}>
-                  Detail
+                <Button sx={{ mr: '8px' }} onClick={() => console.log('')}>
+                  General
                 </Button>
+                <Button sx={{ mr: '8px' }} onClick={() => console.log('')}>
+                  Image
+                </Button>
+                <Button onClick={() => console.log('')}>Attributes</Button>
               </Box>
             </TableCell>
           </TableRow>

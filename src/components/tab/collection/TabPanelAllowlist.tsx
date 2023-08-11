@@ -9,7 +9,7 @@ const TabPanelAllowlist = (props: Props) => {
 
   return (
     <TabPanel value={value} sx={{ px: 0 }}>
-      Item 4
+      Comming soon.
     </TabPanel>
   )
 }

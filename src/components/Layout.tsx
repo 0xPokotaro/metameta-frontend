@@ -14,10 +14,16 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography,
 } from '@mui/material'
-import { Menu as MenuIcon, MoveToInbox as InboxIcon } from '@mui/icons-material'
+import {
+  Menu as MenuIcon,
+  MoveToInbox as InboxIcon,
+  Translate as TranslateIcon,
+} from '@mui/icons-material'
 import { APP_NAME, PAGE_NAME } from '@/config'
 
 export default function Layout({ children }: any) {
@@ -25,6 +31,16 @@ export default function Layout({ children }: any) {
   const { t } = useTranslation('common')
 
   const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const menu = Boolean(anchorEl)
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   const toggleDrawer = () => {
     setOpen(!open)
@@ -35,7 +51,10 @@ export default function Layout({ children }: any) {
     setOpen(!open)
   }
 
-  const changeTo = router.locale === 'en' ? 'ja' : 'en'
+  const handleTranslate = (locale: string) => {
+    router.push(router.route, router.asPath, { locale })
+    setAnchorEl(null)
+  }
 
   return (
     <>
@@ -60,11 +79,22 @@ export default function Layout({ children }: any) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {APP_NAME}
           </Typography>
-          <Link href={router.route} locale={changeTo}>
-            <Button variant="outlined" sx={{ color: 'white' }}>
-              {t('change-locale', { changeTo })}
-            </Button>
-          </Link>
+          <IconButton
+            id="translate-button"
+            onClick={handleClick}
+            sx={{ color: 'white' }}
+          >
+            <TranslateIcon />
+          </IconButton>
+          <Menu
+            id="translate-menu"
+            anchorEl={anchorEl}
+            open={menu}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={() => handleTranslate('en')}>English</MenuItem>
+            <MenuItem onClick={() => handleTranslate('ja')}>日本語</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={toggleDrawer}>

@@ -9,7 +9,7 @@ const TabPanelSmartContract = (props: Props) => {
 
   return (
     <TabPanel value={value} sx={{ px: 0 }}>
-      Item 3
+      Comming soon.
     </TabPanel>
   )
 }
