@@ -1,0 +1,15 @@
+{
+  "button": {
+    "detail": "detail"
+  },
+  "collection": {
+    "table": {
+      "head": {
+        "name": "Collection name",
+        "created_on": "Created on",
+        "actions": "Actions"
+      }
+    },
+    "name": "Collection name"
+  }
+}

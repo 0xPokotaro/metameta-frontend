@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import {
   AppBar,
   Box,
@@ -20,6 +22,7 @@ import { APP_NAME, PAGE_NAME } from '@/config'
 
 export default function Layout({ children }: any) {
   const router = useRouter()
+  const { t } = useTranslation('common')
 
   const [open, setOpen] = useState(false)
 
@@ -31,6 +34,8 @@ export default function Layout({ children }: any) {
     router.push(path)
     setOpen(!open)
   }
+
+  const changeTo = router.locale === 'en' ? 'ja' : 'en'
 
   return (
     <>
@@ -55,6 +60,11 @@ export default function Layout({ children }: any) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {APP_NAME}
           </Typography>
+          <Link href={router.route} locale={changeTo}>
+            <Button variant="outlined" sx={{ color: 'white' }}>
+              {t('change-locale', { changeTo })}
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={toggleDrawer}>

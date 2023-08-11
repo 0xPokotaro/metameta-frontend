@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import {
   Breadcrumbs,
   Button,
@@ -19,6 +20,7 @@ import CreateCollectionDialog from '@/components/dialog/CreateCollectionDialog'
 
 const Collections: React.FC<React.PropsWithChildren> = () => {
   const router = useRouter()
+  const { t } = useTranslation('collections')
 
   const [collections, setCollections] = useState([])
   const [openCreateCollectionDialog, setOpenCreateCollectionDialog] =
@@ -61,7 +63,7 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
             disableElevation
             onClick={() => setOpenCreateCollectionDialog(true)}
           >
-            Create new collection
+            {t('index.button.create')}
           </Button>
           <CreateCollectionDialog
             open={openCreateCollectionDialog}

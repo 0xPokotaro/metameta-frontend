@@ -12,7 +12,7 @@ type Props = {
   onClose: () => void
 }
 
-const EditCollectionDialog = (props: Props) => {
+const CollectionDialogEdit = (props: Props) => {
   const { onClose, open } = props
 
   const handleClose = () => {
@@ -42,4 +42,4 @@ const EditCollectionDialog = (props: Props) => {
   )
 }
 
-export default EditCollectionDialog
+export default CollectionDialogEdit
