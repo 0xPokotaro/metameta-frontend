@@ -1,35 +1,22 @@
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import {
   Button,
   Box,
-  Chip,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
 } from '@mui/material'
-import { API_URI } from '@/config'
 
-const TableCollection = () => {
+interface Props {
+  collectionList: any
+}
+
+const TableCollection = (props: Props) => {
+  const { collectionList } = props
+
   const router = useRouter()
-
-  const [collections, setCollections] = useState([])
-
-  const fetchCollections = async () => {
-    try {
-      const response = await fetch(API_URI.COLLECTIONS)
-      const data = await response.json()
-      setCollections(data.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchCollections()
-  }, [])
 
   return (
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -41,7 +28,7 @@ const TableCollection = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {collections.map((row: any) => (
+        {collectionList.map((row: any) => (
           <TableRow key={row.id}>
             <TableCell component="th" scope="row">
               {row.name}

@@ -17,10 +17,11 @@ type Props = {
   open: boolean
   onClose: () => void
   onComplite: (props: ResultDialogProps) => void
+  onFetch: () => void
 }
 
 const CollectionDialogCreate = (props: Props) => {
-  const { onClose, open, onComplite } = props
+  const { onClose, open, onComplite, onFetch } = props
 
   const { control, reset, handleSubmit } = useForm<CollectionCreateRequest>({})
 
@@ -44,6 +45,7 @@ const CollectionDialogCreate = (props: Props) => {
 
       await new Promise((resolve) => setTimeout(resolve, 250))
 
+      onFetch()
       onComplite({
         title: 'Success',
         content: 'Create collection success.',
@@ -60,11 +62,7 @@ const CollectionDialogCreate = (props: Props) => {
 
   const FieldBox = (props: { children: React.ReactNode }) => {
     const { children } = props
-    return (
-      <Box sx={{ mb: 2 }}>
-        {children}
-      </Box>
-    )
+    return <Box sx={{ mb: 2 }}>{children}</Box>
   }
 
   return (
@@ -91,46 +89,6 @@ const CollectionDialogCreate = (props: Props) => {
                   placeholder="Minthub Collection"
                   error={errors.name ? true : false}
                   helperText={errors.name?.message as string}
-                />
-              )}
-            />
-          </FieldBox>
-          <FieldBox>
-            <Controller
-              name="nftName"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: { value: true, message: 'Required' },
-              }}
-              render={({ field, formState: { errors } }) => (
-                <TextField
-                  {...field}
-                  label="NFT name"
-                  fullWidth
-                  placeholder="Minthub"
-                  error={errors.nftName ? true : false}
-                  helperText={errors.nftName?.message as string}
-                />
-              )}
-            />
-          </FieldBox>
-          <FieldBox>
-            <Controller
-              name="nftSymbol"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: { value: true, message: 'Required' },
-              }}
-              render={({ field, formState: { errors } }) => (
-                <TextField
-                  {...field}
-                  label="NFT symbol"
-                  fullWidth
-                  placeholder="MTHB"
-                  error={errors.nftSymbol ? true : false}
-                  helperText={errors.nftSymbol?.message as string}
                 />
               )}
             />

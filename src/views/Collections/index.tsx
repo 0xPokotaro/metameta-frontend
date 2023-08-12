@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useDialog } from '@/hooks/dialog/useDialog'
 import { useResultDialog } from '@/hooks/dialog/useResultDialog'
 import { Breadcrumbs, Button, Container, Link, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
-import { PAGE_NAME } from '@/config'
+import { API_URI, PAGE_NAME } from '@/config'
 import ResultDialog from '@/components/dialog/ResultDialog'
 import CollectionDialogCreate from '@/components/dialog/CollectionDialogCreate'
 import TableCollection from '@/components/table/collection/TableCollection'
@@ -23,6 +24,22 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
     closeDialog: closeResultDialog,
     dialogProps: resultDialogProps,
   } = useResultDialog()
+
+  const [collectionList, setCollectionList] = useState([])
+
+  const fetchCollectionList = async () => {
+    try {
+      const response = await fetch(API_URI.COLLECTIONS)
+      const data = await response.json()
+      setCollectionList(data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchCollectionList()
+  }, [])
 
   return (
     <Container maxWidth="lg" sx={{ my: '24px' }}>
@@ -49,10 +66,11 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
             open={isCreateCollectionDialog}
             onClose={closeCreateCollectionDialog}
             onComplite={openResultDialog}
+            onFetch={fetchCollectionList}
           />
         </Grid>
         <Grid xs={12}>
-          <TableCollection />
+          <TableCollection collectionList={collectionList} />
         </Grid>
       </Grid>
       <ResultDialog
