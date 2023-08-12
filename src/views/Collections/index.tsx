@@ -1,54 +1,28 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import {
-  Breadcrumbs,
-  Button,
-  Box,
-  Container,
-  Link,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@mui/material'
+import { useDialog } from '@/hooks/dialog/useDialog'
+import { useResultDialog } from '@/hooks/dialog/useResultDialog'
+import { Breadcrumbs, Button, Container, Link, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
-import { API_URI, PAGE_NAME } from '@/config'
-import AlartDialog from '@/components/dialog/AlartDialog'
+import { PAGE_NAME } from '@/config'
+import ResultDialog from '@/components/dialog/ResultDialog'
 import CollectionDialogCreate from '@/components/dialog/CollectionDialogCreate'
+import TableCollection from '@/components/table/collection/TableCollection'
 
 const Collections: React.FC<React.PropsWithChildren> = () => {
-  const router = useRouter()
   const { t } = useTranslation('collections')
 
-  const [collections, setCollections] = useState([])
-  const [openCreateCollectionDialog, setOpenCreateCollectionDialog] =
-    useState<boolean>(false)
-  const [openAlertDialog, setOpenAlertDialog] = useState<boolean>(false)
+  const {
+    isOpen: isCreateCollectionDialog,
+    openDialog: openCreateCollectionDialog,
+    closeDialog: closeCreateCollectionDialog,
+  } = useDialog()
 
-  const fetchCollections = async () => {
-    try {
-      const response = await fetch(API_URI.COLLECTIONS)
-      const data = await response.json()
-      setCollections(data.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const handlerCloseCreateCollectionDialog = () => {
-    setOpenCreateCollectionDialog(false)
-  }
-
-  const handlerOpenAlertDialog = () => {
-    setOpenAlertDialog(true)
-  }
-
-  useEffect(() => {
-    fetchCollections()
-  }, [])
+  const {
+    isOpen: isResultDialog,
+    openDialog: openResultDialog,
+    closeDialog: closeResultDialog,
+    dialogProps: resultDialogProps,
+  } = useResultDialog()
 
   return (
     <Container maxWidth="lg" sx={{ my: '24px' }}>
@@ -67,53 +41,25 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
           <Button
             variant="contained"
             disableElevation
-            onClick={() => setOpenCreateCollectionDialog(true)}
+            onClick={openCreateCollectionDialog}
           >
             {t('index.button.create')}
           </Button>
           <CollectionDialogCreate
-            open={openCreateCollectionDialog}
-            onAlart={handlerOpenAlertDialog}
-            onClose={handlerCloseCreateCollectionDialog}
+            open={isCreateCollectionDialog}
+            onClose={closeCreateCollectionDialog}
+            onComplite={openResultDialog}
           />
         </Grid>
         <Grid xs={12}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Collection name</TableCell>
-                <TableCell>Created on</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {collections.map((row: any) => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.createdAt}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    <Box>
-                      <Button
-                        onClick={() => router.push('/collections/detail/xxxx')}
-                      >
-                        Detail
-                      </Button>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <TableCollection />
         </Grid>
       </Grid>
-      <AlartDialog
-        open={openAlertDialog}
-        onClose={() => setOpenAlertDialog(false)}
-        title="Delete collection"
+      <ResultDialog
+        open={isResultDialog}
+        onClose={closeResultDialog}
+        title={resultDialogProps.title}
+        content={resultDialogProps.content}
       />
     </Container>
   )

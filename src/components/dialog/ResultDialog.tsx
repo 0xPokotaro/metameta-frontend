@@ -12,10 +12,11 @@ type Props = {
   open: boolean
   onClose: () => void
   title: string
+  content: string
 }
 
-const AlartDialog = (props: Props) => {
-  const { onClose, open, title } = props
+const ResultDialog = (props: Props) => {
+  const { onClose, open, title, content } = props
 
   const handleClose = () => {
     onClose()
@@ -24,8 +25,9 @@ const AlartDialog = (props: Props) => {
   return (
     <Dialog open={open} maxWidth="sm" fullWidth onClose={handleClose}>
       <DialogTitle>{title}</DialogTitle>
+      <DialogContent>{content}</DialogContent>
     </Dialog>
   )
 }
 
-export default AlartDialog
+export default ResultDialog

@@ -1,23 +1,16 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import {
-  Breadcrumbs,
   Button,
   Box,
   Chip,
-  Container,
-  Link,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Typography,
 } from '@mui/material'
 
 const TableMatadata = () => {
-  const router = useRouter()
-
   const [metadataList, setMetadataList] = useState([])
 
   const truncateString = (str: string) => {

@@ -1,3 +1,5 @@
 export interface CollectionCreateRequest {
-  name: string;
+  name: string
+  nftName: string
+  nftSymbol: string
 }
