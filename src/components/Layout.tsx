@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useAccount } from 'wagmi'
 import {
   AppBar,
   Box,
-  Button,
   Drawer,
   IconButton,
   List,
@@ -24,11 +23,12 @@ import {
   MoveToInbox as InboxIcon,
   Translate as TranslateIcon,
 } from '@mui/icons-material'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { APP_NAME, PAGE_NAME } from '@/config'
 
 export default function Layout({ children }: any) {
   const router = useRouter()
-  const { t } = useTranslation('common')
+  const { address } = useAccount()
 
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -66,19 +66,24 @@ export default function Layout({ children }: any) {
       </Head>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
+          {address && (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={toggleDrawer}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {APP_NAME}
           </Typography>
+          <Box sx={{ mr: 1 }}>
+            <ConnectButton accountStatus="address" />
+          </Box>
           <IconButton
             id="translate-button"
             onClick={handleClick}
@@ -101,11 +106,19 @@ export default function Layout({ children }: any) {
         <Box sx={{ width: 250 }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => goto('/collections')}>
+              <ListItemButton onClick={() => goto('/')}>
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText>{PAGE_NAME.COLLECTIONS.INDEX}</ListItemText>
+                <ListItemText>{PAGE_NAME.HOME}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => goto('/collection')}>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText>{PAGE_NAME.COLLECTION.INDEX}</ListItemText>
               </ListItemButton>
             </ListItem>
           </List>

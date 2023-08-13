@@ -2,7 +2,7 @@ export const APP_NAME = 'Minthub'
 
 export const PAGE_NAME = {
   HOME: 'Home',
-  COLLECTIONS: {
+  COLLECTION: {
     INDEX: 'Collections',
     DETAIL: 'Detail',
     EDIT: 'Edit',
@@ -10,5 +10,5 @@ export const PAGE_NAME = {
 }
 
 export const API_URI = {
-  COLLECTIONS: '/api/collections',
+  COLLECTION: '/api/collection',
 }

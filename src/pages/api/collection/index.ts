@@ -1,25 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 
-const apiUrl = process.env.API_URL
+const apiUrl = `${process.env.API_URL}/collection`
 
-const getHandler = (req: NextApiRequest, res: NextApiResponse) => {
-  const data = [
-    {
-      id: 1,
-      name: 'MetaKawaii',
-      createdAt: '2021-10-01T00:00:00.000Z',
-    },
-  ]
+const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const response = await axios.get(apiUrl)
 
-  res.status(200).json({ data })
+  res.status(200).json({ data: response.data })
 }
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { name, nftName, nftSymbol } = req.body
-  console.log('create: ', name, nftName, nftSymbol)
+  const { name } = req.body
 
-  const response = await axios.post(`${apiUrl}/collection`, {
+  const response = await axios.post(apiUrl, {
     name,
   })
 

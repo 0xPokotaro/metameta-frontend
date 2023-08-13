@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout'
-import Collections from '@/views/Collections'
+import Collections from '@/views/Collection'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import type { NextPageWithLayout } from '@/pages/_app'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'

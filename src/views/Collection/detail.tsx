@@ -13,10 +13,10 @@ const CollectionDetail: React.FC<React.PropsWithChildren> = () => {
               {PAGE_NAME.HOME}
             </Link>
             <Link underline="hover" color="inherit" href="/collections">
-              {PAGE_NAME.COLLECTIONS.INDEX}
+              {PAGE_NAME.COLLECTION.INDEX}
             </Link>
             <Typography color="text.primary">
-              {PAGE_NAME.COLLECTIONS.DETAIL}
+              {PAGE_NAME.COLLECTION.DETAIL}
             </Typography>
           </Breadcrumbs>
         </Grid>

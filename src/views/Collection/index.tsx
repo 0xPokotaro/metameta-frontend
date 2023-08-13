@@ -29,7 +29,7 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
 
   const fetchCollectionList = async () => {
     try {
-      const response = await fetch(API_URI.COLLECTIONS)
+      const response = await fetch(API_URI.COLLECTION)
       const data = await response.json()
       setCollectionList(data.data)
     } catch (error) {
@@ -50,7 +50,7 @@ const Collections: React.FC<React.PropsWithChildren> = () => {
               {PAGE_NAME.HOME}
             </Link>
             <Typography color="text.primary">
-              {PAGE_NAME.COLLECTIONS.INDEX}
+              {PAGE_NAME.COLLECTION.INDEX}
             </Typography>
           </Breadcrumbs>
         </Grid>

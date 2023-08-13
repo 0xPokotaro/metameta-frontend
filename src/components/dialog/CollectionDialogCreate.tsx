@@ -32,7 +32,7 @@ const CollectionDialogCreate = (props: Props) => {
 
   const submit = async (data: CollectionCreateRequest) => {
     try {
-      await fetch(API_URI.COLLECTIONS, {
+      await fetch(API_URI.COLLECTION, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

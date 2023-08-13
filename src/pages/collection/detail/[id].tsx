@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout'
-import Collection from '@/views/Collections/detail'
+import Collection from '@/views/Collection/detail'
 import type { NextPageWithLayout } from '@/pages/_app'
 
 const CollectionDetailPage: NextPageWithLayout = () => {
